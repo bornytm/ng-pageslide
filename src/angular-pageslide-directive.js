@@ -1,7 +1,7 @@
 var pageslideDirective = angular.module("pageslide-directive", []);
 
 pageslideDirective.directive('pageslide', [
-     function (){
+    function (){
         var defaults = {};
         /* Return directive definition object */
 
@@ -15,7 +15,7 @@ pageslideDirective.directive('pageslide', [
                 //console.log($scope);
                 //console.log(el);
                 //console.log(attrs);
-                
+
                 /* parameters */
                 var param = {};
                 param.side = attrs.pageslide || 'right';
@@ -23,9 +23,15 @@ pageslideDirective.directive('pageslide', [
                 param.size = '300px';
 
                 /* DOM manipulation */
-                var content = (attrs.href) ? document.getElementById(attrs.href.substr(1)) : document.getElementById(attrs.psTarget.substr(1));
+                console.log(el); 
+                e = el;
+                if (el.children() && el.children().length) {
+                   var content = e.children()[0];  
+                } else {
+                    var content = (attrs.href) ? document.getElementById(attrs.href.substr(1)) : document.getElementById(attrs.psTarget.substr(1));
+                }
                 var slider = document.createElement('div');
-                slider.id = "ng-pageslide";
+                slider.className = "ng-pageslide";
 
                 /* Style setup */
                 slider.style.transitionDuration = param.speed + 's';
@@ -35,33 +41,33 @@ pageslideDirective.directive('pageslide', [
                 slider.style.width = 0;
                 slider.style.height = 0;
                 slider.style.transitionProperty = 'width, height';
-                
+
                 switch (param.side){
-                            case 'right':
-                                slider.style.height = '100%'; 
-                                slider.style.top = '0px';
-                                slider.style.bottom = '0px';
-                                slider.style.right = '0px';
-                                break;
-                            case 'left':
-                                slider.style.height = '100%';   
-                                slider.style.top = '0px';
-                                slider.style.bottom = '0px';
-                                slider.style.left = '0px';
-                                break;
-                            case 'top':
-                                slider.style.width = '100%';   
-                                slider.style.left = '0px';
-                                slider.style.top = '0px';
-                                slider.style.right = '0px';
-                                break;
-                            case 'bottom':
-                                slider.style.width = '100%'; 
-                                slider.style.bottom = '0px';
-                                slider.style.left = '0px';
-                                slider.style.right = '0px';
-                                break;
-                        }
+                    case 'right':
+                        slider.style.height = '100%'; 
+                        slider.style.top = '0px';
+                        slider.style.bottom = '0px';
+                        slider.style.right = '0px';
+                        break;
+                    case 'left':
+                        slider.style.height = '100%';   
+                        slider.style.top = '0px';
+                        slider.style.bottom = '0px';
+                        slider.style.left = '0px';
+                        break;
+                    case 'top':
+                        slider.style.width = '100%';   
+                        slider.style.left = '0px';
+                        slider.style.top = '0px';
+                        slider.style.right = '0px';
+                        break;
+                    case 'bottom':
+                        slider.style.width = '100%'; 
+                        slider.style.bottom = '0px';
+                        slider.style.left = '0px';
+                        slider.style.right = '0px';
+                        break;
+                }
 
 
                 /* Append */
@@ -112,10 +118,10 @@ pageslideDirective.directive('pageslide', [
 
                     }
                 }
-                
+
                 /*
-                 * Watchers
-                 * */
+                * Watchers
+                * */
 
                 $scope.$watch(attrs.psOpen, function (value){
                     if (!!value) {
@@ -162,4 +168,5 @@ pageslideDirective.directive('pageslide', [
             }
         };
 
-     }]);
+    }
+]);
